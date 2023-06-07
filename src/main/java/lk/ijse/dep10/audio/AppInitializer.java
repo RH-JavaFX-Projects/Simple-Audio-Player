@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.InnerShadow;
@@ -19,18 +18,13 @@ import javafx.scene.layout.Background;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.media.VideoTrack;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.File;
-import java.nio.Buffer;
 
 public class AppInitializer extends Application {
     private Stage audioStage;
@@ -49,7 +43,7 @@ public class AppInitializer extends Application {
     }
 
     private void mainScene() {
-        if (audioStage!=null) return;
+        if (audioStage != null) return;
         Label lblDuration = new Label("Duration : 00:00");
         Label lblTitle = new Label("Open File and Choose a Audio File to Play");
         lblTitle.setFont(Font.font(16));
@@ -110,7 +104,6 @@ public class AppInitializer extends Application {
         lblDuration.setLayoutY(180);
 
 
-
         root.setBackground(Background.fill(Color.LIGHTCYAN));
         root.setPadding(new Insets(10));
 
@@ -125,10 +118,8 @@ public class AppInitializer extends Application {
         mediaPlayer.setCycleCount(Animation.INDEFINITE);
 
 
-
-
         Image play = new Image("file:data/image/play.png");
-        Image pause= new Image("file:data/image/pause.png");
+        Image pause = new Image("file:data/image/pause.png");
         Image stop = new Image("file:data/image/stop.png");
         Image repeat = new Image("file:data/image/cycle.png");
         Image mute = new Image("file:data/image/mute.png");
@@ -178,12 +169,12 @@ public class AppInitializer extends Application {
         imageFileOpen.setOnMouseExited(mouseEvent -> imageFileOpen.setOpacity(1));
         volumeSlider.setOnMouseEntered(mouseEvent -> volumeSlider.setCursor(Cursor.HAND));
 
-        imagePlay.setOnMousePressed(mouseEvent -> imagePlay.setEffect(new InnerShadow(20,Color.BLACK)));
-        imagePause.setOnMousePressed(mouseEvent -> imagePause.setEffect(new InnerShadow(20,Color.BLACK)));
-        imageStop.setOnMousePressed(mouseEvent -> imageStop.setEffect(new InnerShadow(20,Color.BLACK)));
-        imageRepeat.setOnMousePressed(mouseEvent -> imageRepeat.setEffect(new InnerShadow(20,Color.BLACK)));
-        imageFileOpen.setOnMousePressed(mouseEvent -> imageFileOpen.setEffect(new InnerShadow(20,Color.BLACK)));
-        imageMute.setOnMousePressed(mouseEvent -> imageMute.setEffect(new InnerShadow(20,Color.BLACK)));
+        imagePlay.setOnMousePressed(mouseEvent -> imagePlay.setEffect(new InnerShadow(20, Color.BLACK)));
+        imagePause.setOnMousePressed(mouseEvent -> imagePause.setEffect(new InnerShadow(20, Color.BLACK)));
+        imageStop.setOnMousePressed(mouseEvent -> imageStop.setEffect(new InnerShadow(20, Color.BLACK)));
+        imageRepeat.setOnMousePressed(mouseEvent -> imageRepeat.setEffect(new InnerShadow(20, Color.BLACK)));
+        imageFileOpen.setOnMousePressed(mouseEvent -> imageFileOpen.setEffect(new InnerShadow(20, Color.BLACK)));
+        imageMute.setOnMousePressed(mouseEvent -> imageMute.setEffect(new InnerShadow(20, Color.BLACK)));
 
         imagePlay.setOnMouseReleased(mouseEvent -> {
             imagePlay.setEffect(null);
@@ -213,32 +204,32 @@ public class AppInitializer extends Application {
         });
         imageFileOpen.setOnMouseReleased(mouseEvent -> {
             imageFileOpen.setEffect(null);
-            audioFile= fileChooser.showOpenDialog(null);
+            audioFile = fileChooser.showOpenDialog(null);
             fileChooser.setTitle("Open an Audio File");
             if (audioFile != null) {
-                mediaPlayer= new MediaPlayer(new Media(audioFile.toURI().toString()));
+                mediaPlayer = new MediaPlayer(new Media(audioFile.toURI().toString()));
                 audioFileName = audioFile.toString().split("/");
-                lblTitle.setText(audioFileName[audioFileName.length-1]);
-            }else mediaPlayer=null;
+                lblTitle.setText(audioFileName[audioFileName.length - 1]);
+            } else mediaPlayer = null;
         });
         imageMute.setOnMouseReleased(mouseEvent -> {
             imageMute.setEffect(null);
             if (mediaPlayer != null) {
-                    imageMute.setImage(mute);
-                    if(mediaPlayer.isMute()) {
-                        imageMute.setImage(muteOff);
-                        mediaPlayer.setMute(false);
-                    }
-                    else mediaPlayer.setMute(true);
+                imageMute.setImage(mute);
+                if (mediaPlayer.isMute()) {
+                    imageMute.setImage(muteOff);
+                    mediaPlayer.setMute(false);
+                } else mediaPlayer.setMute(true);
             }
         });
 
         volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            if (volumeSlider.isValueChanging()) mediaPlayer.setVolume(volumeSlider.getValue()/100);
-            if (volumeSlider.getValue()==0) imageMute.setImage(mute); else imageMute.setImage(muteOff);
+            if (volumeSlider.isValueChanging()) mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+            if (volumeSlider.getValue() == 0) imageMute.setImage(mute);
+            else imageMute.setImage(muteOff);
         });
 
-        KeyFrame keyFrame = new KeyFrame(Duration.millis(6000),actionEvent -> {
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(6000), actionEvent -> {
             TranslateTransition translateX = new TranslateTransition(Duration.millis(6000), lblTitle);
             translateX.setFromX(-700);
             translateX.setToX(450);
@@ -247,21 +238,6 @@ public class AppInitializer extends Application {
         Timeline timeline = new Timeline(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         audioStage.setScene(new Scene(root));
@@ -273,7 +249,7 @@ public class AppInitializer extends Application {
         audioStage.sizeToScene();
         audioStage.show();
         audioStage.centerOnScreen();
-        audioStage.setOnCloseRequest(windowEvent -> audioStage=null);
+        audioStage.setOnCloseRequest(windowEvent -> audioStage = null);
 
     }
 }
