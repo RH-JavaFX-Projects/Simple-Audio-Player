@@ -2,7 +2,7 @@
 
 This is a simple audio player built using Java and JavaFX. The application allows you to play audio files in various formats and provides basic playback controls.
 
-![Java Audio Player Screenshot](screenshot.png)
+![Java Audio Player Screenshot](Screenshot.png)
 
 ## Features
 
